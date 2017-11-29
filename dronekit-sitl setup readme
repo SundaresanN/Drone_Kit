@@ -1,0 +1,30 @@
+sudo apt-get update
+sudo apt-get install python-pip
+pip install mavproxy
+pip install dronekit
+pip install dronekit-sitl
+
+#start dronekit-sitl by typing
+dronekit-sitl copter-3.3
+
+#If you get exec format error then you need to build your vehicle
+#To build vehicle do the following
+sudo apt-get install git
+git clone https://github.com/dronekit/dronekit-sitl.git
+cd dronekit-sitl/stage
+sudo apt-get install gawk
+./build copter 3.3
+
+#Wait till it compile 
+#once compiled extract the files 
+#From dronekit-sitl/stage/publish/copter/sitl-linux-copter-3.3.tar.gz
+#To ./dronekit/sitl/copter-3.3/
+
+cd /publish/copter/
+cp sitl-linux-copter-3.3.tar.gz /home/$USER/.dronekit/sitl/copter-3.3
+cd ./dronekit/sitl/copter-3.3
+tar -xf sitl-linux-copter-3.3.tar.gz
+
+#To avoid getting "APM: PreArm: RC not calibrated" at mavproxy terminal
+#Go to /tmp and copy the eeprom.bin to ./dronekit/sitl/copter-3.3/  
+#And rename "eeprom.bin" to "default_eeprom.bin"
